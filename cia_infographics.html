@@ -3,576 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CIA Свечной Консьерж — Интерактивная презентация</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for premium typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <title>CIA Candles — Идеальный свет для HoReCa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700&family=Montserrat:wght=300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #0d0d0f;
-            color: #f3f4f6;
+        :root {
+            --gold: #D4AF37;
+            --black: #0a0a0a;
+            --dark-grey: #1a1a1a;
+            --text-white: #ffffff;
         }
-        .serif-title {
-            font-family: 'Playfair Display', serif;
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--black); 
+            color: var(--text-white); 
+            font-family: 'Montserrat', sans-serif; 
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        .gold-gradient {
-            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        /* Header */
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 1000;
         }
-        .gold-border {
-            border-image: linear-gradient(to right, #bf953f, #aa771c) 1;
+        .logo { font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: 3px; color: var(--gold); }
+        .header-contacts { display: flex; align-items: center; gap: 20px; }
+        .phone { font-weight: 600; text-decoration: none; color: #fff; font-size: 0.9rem; }
+        .btn-mini { padding: 8px 15px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-size: 0.7rem; font-weight: 700; border-radius: 3px; transition: 0.3s; }
+        .btn-mini:hover { background: var(--gold); color: #000; }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 5%;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
         }
-        .glow-amber {
-            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.3);
+        .hero h4 { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; font-size: 0.9rem; margin-bottom: 20px; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 30px; }
+        .hero p { max-width: 700px; margin: 0 auto 40px; opacity: 0.8; font-size: 1.1rem; }
+        
+        .btn-main { 
+            display: inline-block; 
+            padding: 20px 40px; 
+            background: var(--gold); 
+            color: #000; 
+            text-decoration: none; 
+            font-weight: 700; 
+            border-radius: 5px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            transition: 0.3s;
+            cursor: pointer;
         }
-        /* Custom smooth transition for the flipping glass */
-        .glass-container {
-            perspective: 1000px;
+        .btn-main:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .offer-note { margin-top: 15px; font-size: 0.8rem; opacity: 0.6; }
+
+        /* Benefits Section */
+        .benefits { padding: 100px 5%; text-align: center; }
+        .benefits h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 60px; }
+        .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .benefit-card { background: var(--dark-grey); padding: 40px 30px; border-left: 2px solid var(--gold); text-align: left; }
+        .benefit-card span { color: var(--gold); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 10px; }
+        .benefit-card h3 { color: var(--gold); margin-bottom: 15px; }
+
+        /* Product Section */
+        .product { padding: 100px 5%; background: #000; display: flex; flex-direction: column; gap: 50px; }
+        
+        @media (min-width: 992px) {
+            .product { flex-direction: row; align-items: center; }
         }
-        .glass-card {
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
+
+        /* Контейнер для двух PNG картинок */
+        .product-gallery { 
+            flex: 1.2; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 20px; 
+            min-width: 300px; 
         }
-        .glass-card.flipped {
-            transform: rotateX(180deg);
+        
+        .product-gallery img { 
+            width: 100%; 
+            max-height: 400px; 
+            object-fit: contain; 
+            border-radius: 8px;
+            padding: 5px;
+            box-shadow: 0 10px 30px rgba(214, 175, 55, 0.05);
         }
-        .glass-front, .glass-back {
-            backface-visibility: hidden;
+        
+        .product-info { flex: 1; min-width: 300px; }
+        .product-info h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
+        .tech-list { list-style: none; margin-top: 30px; }
+        .tech-list li { margin-bottom: 15px; padding-left: 30px; position: relative; }
+        .tech-list li::before { content: "—"; position: absolute; left: 0; color: var(--gold); }
+        .tech-list b { color: var(--gold); }
+
+        /* Economics Section */
+        .economics { padding: 100px 5%; text-align: center; }
+        .eco-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
+            max-width: 1000px; 
+            margin: 0 auto; 
         }
-        .glass-back {
-            transform: rotateX(180deg);
+        .eco-box { 
+            padding: 40px; 
+            border: 1px solid rgba(212, 175, 55, 0.3); 
+            border-radius: 8px;
+            text-align: left;
+        }
+        .eco-box.ozon { background: #111; opacity: 0.7; }
+        .eco-box.cia { background: var(--dark-grey); position: relative; border-color: var(--gold); }
+        .eco-box.cia::after { content: "ВЫГОДА 58%"; position: absolute; top: 15px; right: 15px; font-size: 0.7rem; background: var(--gold); color: #000; padding: 5px 10px; font-weight: 700; border-radius: 3px; }
+        .eco-price { font-size: 2rem; color: var(--gold); margin: 20px 0; font-weight: 700; }
+
+        /* Svet Cafe Hook */
+        .quote { padding: 80px 5%; text-align: center; background: #000; font-style: italic; }
+        .quote blockquote { font-family: 'Playfair Display', serif; font-size: 1.5rem; max-width: 800px; margin: 0 auto; }
+        .quote cite { display: block; margin-top: 20px; font-style: normal; color: var(--gold); font-size: 0.8rem; letter-spacing: 2px; }
+
+        /* Order Form */
+        #order { padding: 100px 5%; background: var(--black); scroll-margin-top: 80px; }
+        .form-container { max-width: 600px; margin: 0 auto; border: 1px solid var(--gold); padding: 50px; border-radius: 10px; }
+        .form-container h2 { font-family: 'Playfair Display', serif; text-align: center; color: var(--gold); margin-bottom: 30px; }
+        form { display: flex; flex-direction: column; gap: 15px; }
+        input { padding: 15px; background: #111; border: 1px solid #333; color: #fff; border-radius: 5px; outline: none; font-family: 'Montserrat', sans-serif; }
+        input:focus { border-color: var(--gold); }
+        .btn-submit { padding: 20px; background: var(--gold); color: #000; border: none; font-weight: 700; text-transform: uppercase; cursor: pointer; border-radius: 5px; transition: 0.3s; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
+        .btn-submit:hover { background: #fff; }
+
+        /* WhatsApp Button */
+        .wa-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+            z-index: 100;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            animation: pulse-wa 2s infinite;
+        }
+
+        @keyframes pulse-wa {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        footer { padding: 40px 5%; text-align: center; border-top: 1px solid rgba(212, 175, 55, 0.1); font-size: 0.8rem; opacity: 0.5; }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .eco-grid { grid-template-columns: 1fr; gap: 15px; }
+            .form-container { padding: 30px 20px; }
+        }
+
+        @media (max-width: 480px) {
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .header-contacts { flex-direction: column; gap: 12px; }
+            .hero { padding: 60px 5%; }
+            .benefits { padding: 60px 5%; }
+            #order { padding: 60px 5%; }
+            .product-gallery { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body class="selection:bg-amber-600 selection:text-white overflow-x-hidden">
+<body>
 
-    <!-- HEADER / HERO -->
-    <header class="relative min-h-screen flex flex-col justify-between items-center py-8 px-4 text-center border-b border-zinc-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900 via-[#0d0d0f] to-[#0d0d0f]">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#bf953f_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        
-        <div class="z-10 mt-12">
-            <p class="text-xs uppercase tracking-[0.4em] text-zinc-400 mb-3">Premium B2B Service</p>
-            <h1 class="serif-title text-5xl md:text-7xl font-semibold tracking-wide mb-2 text-white">
-                CIA <span class="font-light italic text-zinc-300">Candles</span>
-            </h1>
-            <p class="text-xs uppercase tracking-[0.6em] text-amber-500/80 mb-8">Crafted for Atmosphere</p>
-            <div class="h-[1px] w-24 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent mx-auto"></div>
-        </div>
-
-        <div class="z-10 max-w-4xl mx-auto px-4 my-auto">
-            <h2 class="serif-title text-3xl md:text-5xl font-light leading-tight text-zinc-100 mb-6">
-                Представляем проект <br>
-                <span class="gold-gradient font-semibold tracking-wider uppercase text-2xl md:text-4xl block mt-2">Свечной Консьерж</span>
-            </h2>
-            <p class="text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-8">
-                Первый в Санкт-Петербурге профессиональный сервис полного аутсорсинга вечернего света для HoReCa. Избавьте заведение от рутины закупок, восковых пятен и чистки стекла.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#test-box" class="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-medium text-xs uppercase tracking-widest py-4 px-8 rounded-none transition duration-300 glow-amber">
-                    Заказать тест-бокс
-                </a>
-                <a href="#interactive-glass" class="border border-zinc-700 hover:border-amber-500/50 hover:text-amber-400 text-zinc-300 font-medium text-xs uppercase tracking-widest py-4 px-8 rounded-none transition duration-300">
-                    Посмотреть колбу-трансформер
-                </a>
-            </div>
-        </div>
-
-        <div class="z-10 animate-bounce cursor-pointer text-zinc-500 hover:text-amber-500 transition-colors">
-            <a href="#interactive-glass">
-                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-            </a>
+    <header>
+        <div class="logo">CIA CANDLES</div>
+        <div class="header-contacts">
+            <a href="tel:+79112109955" class="phone">+7 (911) 210-99-55</a>
+            <a href="#order" class="btn-mini">ТЕСТ-БОКС</a>
         </div>
     </header>
 
-    <!-- INTERACTIVE SECTION: THE GLASS TRANSFORMER -->
-    <section id="interactive-glass" class="py-24 px-4 bg-zinc-950/40 relative">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <p class="text-xs uppercase tracking-[0.3em] text-amber-500 mb-2">Технология и эстетика</p>
-                <h2 class="serif-title text-3xl md:text-5xl font-light text-white">Умное стекло «2-в-1»</h2>
-                <div class="h-1 w-12 bg-amber-500 mx-auto mt-4"></div>
-                <p class="text-zinc-400 text-sm max-w-xl mx-auto mt-4">
-                    Мы бесплатно предоставляем заведениям в аренду наши дизайнерские колбы-трансформеры (Ø 80 мм). Нажмите на кнопку ниже, чтобы перевернуть колбу.
-                </p>
+    <section class="hero">
+        <h4>Санкт-Петербург и ЛО</h4>
+        <h1>Мы продаем предсказуемость, а не парафин</h1>
+        <p>Перейдите от хаотичных закупок на маркетплейсах к профессиональной сервисной инфраструктуре. Экономия до 50% бюджета на освещение.</p>
+        <a href="#order" class="btn-main">Получить тест-бокс бесплатно</a>
+        <p class="offer-note">10 свечей + 2 умные колбы на 3 вечера</p>
+    </section>
+
+    <section class="benefits">
+        <h2>Цикл нулевого стресса</h2>
+        <div class="benefit-grid">
+            <div class="benefit-card">
+                <span>Для бизнеса</span>
+                <h3>Экономия 37 часов</h3>
+                <p>Освободите персонал от поездок в гипермаркеты. Мы сами пополняем запасы каждые две недели по вашему графику.</p>
             </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
-                <!-- Left Details (Normal mode) -->
-                <div class="lg:col-span-4 space-y-8 order-2 lg:order-1 transition-all duration-500" id="desc-normal">
-                    <div class="border-l-2 border-amber-500 pl-4">
-                        <span class="text-amber-500 font-semibold text-sm">ПОЛОЖЕНИЕ А</span>
-                        <h3 class="serif-title text-xl font-medium text-white mt-1">Классический цилиндр</h3>
-                        <p class="text-zinc-400 text-xs mt-2 leading-relaxed">
-                            Идеально для размещения свечей-столбиков размером <strong class="text-zinc-200">50х100 мм</strong> и <strong class="text-zinc-200">75х150 мм</strong>.
-                        </p>
-                    </div>
-                    <div class="space-y-4 text-xs text-zinc-400">
-                        <div class="flex items-start gap-2">
-                            <span class="text-amber-500 mt-1">✔</span>
-                            <p><strong class="text-zinc-200">100% защита от ветра:</strong> Пламя горит внутри стекла, идеально для летних веранд и сквозняков.</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="text-amber-500 mt-1">✔</span>
-                            <p><strong class="text-zinc-200">Спасение текстиля:</strong> Весь парафин плавится внутри колбы, не пачкая скатерти.</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="text-amber-500 mt-1">✔</span>
-                            <p><strong class="text-zinc-200">Эффект левитации:</strong> Внутренний купол приподнимает свечу, заставляя её парить.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Center Interactive Glass Visualizer -->
-                <div class="lg:col-span-4 flex flex-col items-center justify-center order-1 lg:order-2">
-                    <div class="glass-container w-64 h-96 relative flex items-center justify-center">
-                        <div id="glassCard" class="glass-card w-full h-full relative cursor-pointer" onclick="toggleGlass()">
-                            
-                            <!-- FRONT SIDE (Normal Position - Cylinder for pillars) -->
-                            <div class="glass-front absolute inset-0 bg-zinc-900/60 border border-zinc-800 rounded-3xl p-6 flex flex-col justify-between items-center glow-amber">
-                                <span class="text-[10px] tracking-widest text-zinc-500 uppercase">Положение: Цилиндр</span>
-                                
-                                <!-- SVG Glass normal -->
-                                <svg class="w-48 h-64" viewBox="0 0 100 130">
-                                    <!-- Outer glass beaker -->
-                                    <rect x="15" y="10" width="70" height="110" rx="3" fill="none" stroke="#e4e4e7" stroke-width="2" opacity="0.6"/>
-                                    <!-- Bottom dome (curve upward) -->
-                                    <path d="M 15 120 Q 50 85 85 120" fill="none" stroke="#e4e4e7" stroke-width="2" opacity="0.8"/>
-                                    
-                                    <!-- Pillar Candle sitting on the dome -->
-                                    <rect x="35" y="45" width="30" height="55" fill="#fcfcfc" rx="1"/>
-                                    <!-- Wick -->
-                                    <line x1="50" y1="45" x2="50" y2="38" stroke="#111" stroke-width="1.5"/>
-                                    <!-- Beautiful Amber Flame Glow -->
-                                    <path d="M 50 22 C 54 30 54 38 50 38 C 46 38 46 30 50 22 Z" fill="#f59e0b" filter="drop-shadow(0px 0px 4px rgba(245, 158, 11, 0.9))">
-                                        <animate attributeName="opacity" values="0.85;1;0.85" dur="1.5s" repeatCount="indefinite"/>
-                                        <animateTransform attributeName="transform" type="skewX" values="-1;2;-2;1;-1" dur="2s" repeatCount="indefinite" addon="sum"/>
-                                    </path>
-                                    
-                                    <!-- Droplets inside -->
-                                    <path d="M 40 115 Q 40 100 45 100" fill="none" stroke="#e2e8f0" stroke-width="1" opacity="0.4"/>
-                                </svg>
-                                
-                                <span class="text-[10px] text-amber-500 uppercase tracking-widest">Кликните, чтобы перевернуть</span>
-                            </div>
-                            
-                            <!-- BACK SIDE (Flipped Position - Pedestal for tea lights) -->
-                            <div class="glass-back absolute inset-0 bg-zinc-900/60 border border-zinc-800 rounded-3xl p-6 flex flex-col justify-between items-center">
-                                <span class="text-[10px] tracking-widest text-zinc-500 uppercase">Положение: Пьедестал</span>
-                                
-                                <!-- SVG Glass flipped -->
-                                <svg class="w-48 h-64" viewBox="0 0 100 130">
-                                    <!-- Outer glass beaker (Flipped) -->
-                                    <rect x="15" y="10" width="70" height="110" rx="3" fill="none" stroke="#e4e4e7" stroke-width="2" opacity="0.6"/>
-                                    <!-- Bottom dome now at the top (curve downward) -->
-                                    <path d="M 15 20 Q 50 55 85 20" fill="none" stroke="#e4e4e7" stroke-width="2" opacity="0.8"/>
-                                    
-                                    <!-- Small Tealight sitting in the cup -->
-                                    <rect x="38" y="24" width="24" height="10" fill="#e2e8f0" rx="1"/>
-                                    <!-- Wick -->
-                                    <line x1="50" y1="24" x2="50" y2="18" stroke="#111" stroke-width="1"/>
-                                    <!-- Glowing tealight flame -->
-                                    <path d="M 50 6 C 52 12 52 18 50 18 C 48 18 48 12 50 6 Z" fill="#f59e0b" filter="drop-shadow(0px 0px 4px rgba(245, 158, 11, 0.9))">
-                                        <animate attributeName="opacity" values="0.8;1;0.8" dur="1.2s" repeatCount="indefinite"/>
-                                        <animateTransform attributeName="transform" type="skewX" values="1;-1;2;-1;1" dur="1.8s" repeatCount="indefinite" addon="sum"/>
-                                    </path>
-                                </svg>
-                                
-                                <span class="text-[10px] text-amber-500 uppercase tracking-widest">Кликните, чтобы вернуть</span>
-                            </div>
-
-                        </div>
-                    </div>
-                    
-                    <button onclick="toggleGlass()" class="mt-8 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-300 tracking-wider py-2.5 px-6 rounded-full transition duration-300">
-                        🔁 Перевернуть демонстрацию
-                    </button>
-                </div>
-
-                <!-- Right Details (Flipped mode) -->
-                <div class="lg:col-span-4 space-y-8 order-3 transition-all duration-500 opacity-40" id="desc-flipped">
-                    <div class="border-l-2 border-zinc-700 pl-4" id="flipped-border">
-                        <span class="text-zinc-500 font-semibold text-sm" id="flipped-label">ПОЛОЖЕНИЕ Б</span>
-                        <h3 class="serif-title text-xl font-medium text-white mt-1">Изящный пьедестал</h3>
-                        <p class="text-zinc-400 text-xs mt-2 leading-relaxed">
-                            Идеально для размещения стандартной чайной свечи-таблетки в верхней чаше купола.
-                        </p>
-                    </div>
-                    <div class="space-y-4 text-xs text-zinc-400">
-                        <div class="flex items-start gap-2">
-                            <span class="text-amber-500 mt-1">✔</span>
-                            <p><strong class="text-zinc-200">Преломление света:</strong> Полая стеклянная ножка преломляет лучи, создавая богатое праздничное сияние на столе.</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="text-amber-500 mt-1">✔</span>
-                            <p><strong class="text-zinc-200">Парящий огонек:</strong> Пламя чайной свечи приподнимается над поверхностью стола на 10-15 см.</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="text-amber-500 mt-1">✔</span>
-                            <p><strong class="text-zinc-200">Максимум свободного места:</strong> Опора колбы занимает минимум площади на узких сервированных столах.</p>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="benefit-card">
+                <span>Для банкетных залов</span>
+                <h3>Защита текстиля</h3>
+                <p>100% защита от оплывания. Наши колбы-трансформеры гарантируют, что ни капли воска не попадет на скатерти.</p>
+            </div>
+            <div class="benefit-card">
+                <span>Для баров</span>
+                <h3>Чистота вкуса</h3>
+                <p>Используем только очищенный белый парафин без запаха. Никакой копоти и посторонних ароматов в зале.</p>
+            </div>
+            <div class="benefit-card">
+                <span>Для собственника</span>
+                <h3>Цена на 12 месяцев</h3>
+                <p>Фиксация стоимости в договоре на год. Защитите свой P&L от инфляции и скачков цен на маркетплейсах.</p>
             </div>
         </div>
     </section>
 
-    <!-- PRODUCT CATALOG -->
-    <section class="py-24 px-4 bg-[#0d0d0f] relative">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16">
-                <p class="text-xs uppercase tracking-[0.3em] text-amber-500 mb-2">Наш безупречный ассортимент</p>
-                <h2 class="serif-title text-3xl md:text-5xl font-light text-white">Точные размеры под ваши задачи</h2>
-                <div class="h-1 w-12 bg-amber-500 mx-auto mt-4"></div>
-                <p class="text-zinc-400 text-sm max-w-xl mx-auto mt-4">
-                    Мы принципиально поставляем только чистые белые парафиновые свечи без запаха. Они не спорят с запахами ресторанной кухни и горят чисто.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                
-                <!-- Card 1: 22x250 -->
-                <div class="bg-zinc-950/40 border border-zinc-900 p-6 flex flex-col justify-between items-center text-center hover:border-zinc-800 transition duration-300">
-                    <div class="h-48 flex items-end justify-center mb-6">
-                        <!-- SVG visual scale -->
-                        <svg class="w-8 h-40" viewBox="0 0 20 100">
-                            <rect x="7" y="10" width="6" height="85" fill="#f4f4f5" rx="1"/>
-                            <line x1="10" y1="10" x2="10" y2="5" stroke="#111" stroke-width="0.8"/>
-                            <path d="M 10 0 C 11 3 11 5 10 5 C 9 5 9 3 10 0 Z" fill="#f59e0b"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="text-[10px] text-amber-500 tracking-widest uppercase">Античные</span>
-                        <h4 class="serif-title text-lg font-medium text-white mt-1">22 × 250 мм</h4>
-                        <p class="text-[11px] text-zinc-500 mt-2">Классическая коническая свеча для подсвечников. Элегантное решение.</p>
-                    </div>
-                </div>
-
-                <!-- Card 2: 30x350 -->
-                <div class="bg-zinc-950/40 border border-zinc-900 p-6 flex flex-col justify-between items-center text-center hover:border-zinc-800 transition duration-300">
-                    <div class="h-48 flex items-end justify-center mb-6">
-                        <!-- SVG visual scale -->
-                        <svg class="w-10 h-48" viewBox="0 0 20 120">
-                            <rect x="6" y="10" width="8" height="105" fill="#f4f4f5" rx="1"/>
-                            <line x1="10" y1="10" x2="10" y2="4" stroke="#111" stroke-width="0.8"/>
-                            <path d="M 10 -2 C 11.5 2 11.5 4 10 4 C 8.5 4 8.5 2 10 -2 Z" fill="#f59e0b"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="text-[10px] text-amber-500 tracking-widest uppercase">Античные крупные</span>
-                        <h4 class="serif-title text-lg font-medium text-white mt-1">30 × 350 мм</h4>
-                        <p class="text-[11px] text-zinc-500 mt-2">Высокая акцентная свеча для больших залов, ВИП-столов и торжеств.</p>
-                    </div>
-                </div>
-
-                <!-- Card 3: 50x100 -->
-                <div class="bg-zinc-950/40 border border-zinc-900 p-6 flex flex-col justify-between items-center text-center hover:border-zinc-800 transition duration-300">
-                    <div class="h-48 flex items-end justify-center mb-6">
-                        <!-- SVG visual scale -->
-                        <svg class="w-14 h-28" viewBox="0 0 40 80">
-                            <rect x="10" y="20" width="20" height="55" fill="#f4f4f5" rx="1"/>
-                            <line x1="20" y1="20" x2="20" y2="13" stroke="#111" stroke-width="1.2"/>
-                            <path d="M 20 3 C 22.5 8 22.5 13 20 13 C 17.5 13 17.5 8 20 3 Z" fill="#f59e0b"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="text-[10px] text-amber-500 tracking-widest uppercase">Столбики малые</span>
-                        <h4 class="serif-title text-lg font-medium text-white mt-1">50 × 100 мм</h4>
-                        <p class="text-[11px] text-zinc-500 mt-2">Универсальный столбик для малых колб. Безопасное уютное пламя.</p>
-                    </div>
-                </div>
-
-                <!-- Card 4: 75x150 -->
-                <div class="bg-zinc-950/40 border border-zinc-900 p-6 flex flex-col justify-between items-center text-center hover:border-zinc-800 transition duration-300">
-                    <div class="h-48 flex items-end justify-center mb-6">
-                        <!-- SVG visual scale -->
-                        <svg class="w-20 h-36" viewBox="0 0 50 100">
-                            <rect x="10" y="15" width="30" height="80" fill="#f4f4f5" rx="1.5"/>
-                            <line x1="25" y1="15" x2="25" y2="7" stroke="#111" stroke-width="1.5"/>
-                            <path d="M 25 -3 C 28 3 28 7 25 7 C 22 7 22 3 25 -3 Z" fill="#f59e0b"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="text-[10px] text-amber-500 tracking-widest uppercase">Столбики крупные</span>
-                        <h4 class="serif-title text-lg font-medium text-white mt-1">75 × 150 мм</h4>
-                        <p class="text-[11px] text-zinc-500 mt-2">Массивная интерьерная свеча. Сверхдолгое время горения для уличных веранд.</p>
-                    </div>
-                </div>
-
-            </div>
+    <section class="product">
+        <div class="product-gallery">
+            <img src="Kolba.png" alt="Колбы-трансформеры CIA — Вид 1"> 
+            <img src="Kolba2.png" alt="Колбы-трансформеры CIA — Вид 2"> 
+        </div>
+        
+        <div class="product-info">
+            <h2>Flask-transformer</h2>
+            <p>Универсальная инженерная система для профессионального освещения.</p>
+            <ul class="tech-list">
+                <li><b>Геометрия:</b> Ø 80 мм, Высота 150 мм</li>
+                <li><b>Конструктив:</b> Функциональный купол на дне, защита от ветра</li>
+                <li><b>Эргономика:</b> Без внутренней «ножки» — замена свечи за 3 секунды</li>
+                <li><b>Сервис:</b> Регулярная ротация чистого стекла нашими курьерами</li>
+                <li><b>Состав:</b> Белый гипоаллергенный парафин высокой очистки</li>
+            </ul>
         </div>
     </section>
 
-    <!-- INTERACTIVE COST CALCULATOR -->
-    <section class="py-24 px-4 bg-zinc-950/60 relative border-t border-b border-zinc-900">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <p class="text-xs uppercase tracking-[0.3em] text-amber-500 mb-2">Оцените выгоду для вашего бюджета</p>
-                <h2 class="serif-title text-3xl md:text-4xl font-light text-white">Интерактивный калькулятор скрытых затрат</h2>
-                <div class="h-[1px] w-24 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto mt-4"></div>
+    <section class="quote">
+        <blockquote>«Ваша концепция построена вокруг света. Мы обеспечим вас идеальными свечами, которые не пахнут и не перебивают вкус вашего знаменитого тирамису»</blockquote>
+        <cite>КЕЙС SVET CAFE (РЕЙТИНГ 5.0, СВЕЧНОЙ ПЕР., 5)</cite>
+    </section>
+
+    <section class="economics">
+        <h2>Экономика TCO</h2>
+        <p style="margin-bottom: 40px; opacity: 0.7;">Почему покупать на Ozon — это иллюзия дешевизны</p>
+        <div class="eco-grid">
+            <div class="eco-box ozon">
+                <h3>Сценарий: Маркетплейс</h3>
+                <p style="margin-top: 10px;">Цена (100 шт): 1200 ₽</p>
+                <p>Доставка по ЛО: + 1000 ₽</p>
+                <p>Время закупщика (1.5ч): + 446 ₽</p>
+                <p style="color: #ff4444; font-weight: 600; margin-top: 10px;">Риск отсутствия: Высокий</p>
+                <div class="eco-price">Итого: 2646 ₽</div>
             </div>
-
-            <div class="bg-zinc-900/40 border border-zinc-800 p-8 rounded-none">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    
-                    <!-- Controls -->
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-2" id="tables-label">Количество столиков со свечами:</label>
-                            <input type="range" id="tablesRange" min="5" max="100" value="25" oninput="calculateSavings()" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-amber-500">
-                            <div class="flex justify-between text-xs text-zinc-500 mt-1">
-                                <span>5 столов</span>
-                                <span class="text-amber-500 font-semibold" id="tablesValue">25 столов</span>
-                                <span>100 столов</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-2">Рабочих вечеров в месяц:</label>
-                            <input type="range" id="daysRange" min="10" max="31" value="30" oninput="calculateSavings()" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-amber-500">
-                            <div class="flex justify-between text-xs text-zinc-500 mt-1">
-                                <span>10 дней</span>
-                                <span class="text-amber-500 font-semibold" id="daysValue">30 дней</span>
-                                <span>31 день</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Visual Metrics of Saving -->
-                    <div class="bg-zinc-950/60 p-6 border border-zinc-800 text-center space-y-4">
-                        <p class="text-[10px] uppercase tracking-wider text-zinc-500">Примерная экономия в месяц с CIA</p>
-                        
-                        <div>
-                            <span class="text-4xl font-light text-white" id="moneySaved">22 500 ₽</span>
-                            <span class="text-[10px] block text-amber-500 mt-1">на химчистке скатертей и закупках</span>
-                        </div>
-
-                        <div class="h-[1px] bg-zinc-800 w-1/2 mx-auto"></div>
-
-                        <div>
-                            <span class="text-2xl font-light text-white" id="hoursSaved">37 часов</span>
-                            <span class="text-[10px] block text-zinc-500 mt-1">рабочего времени официантов сохранено</span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="mt-8 text-center text-[11px] text-zinc-500 max-w-lg mx-auto leading-relaxed">
-                    *В расчетах учтена среднестатистическая порча текстиля капающим воском (15% от застеленных столов в месяц), среднее время официанта на отмывание одного подсвечника от парафина вручную (5 минут) и замена копоти дешевых свечей.
-                </div>
+            <div class="eco-box cia">
+                <h3>Сценарий: CIA Сервис</h3>
+                <p style="margin-top: 10px;">Цена (100 шт): 1100 ₽</p>
+                <p>Доставка: 0 ₽</p>
+                <p>Время закупщика: 0 ч.</p>
+                <p style="color: #25d366; font-weight: 600; margin-top: 10px;">Гарантия наличия: 100%</p>
+                <div class="eco-price">Итого: 1100 ₽</div>
             </div>
+        </div>
+        <div style="margin-top: 40px;">
+             <a href="#order" class="btn-main">Заказать расчет для моего заведения</a>
         </div>
     </section>
 
-    <!-- THE SERVICE LOOP (4 STEPS) -->
-    <section class="py-24 px-4 bg-[#0d0d0f]">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16">
-                <p class="text-xs uppercase tracking-[0.3em] text-amber-500 mb-2">Как работает Свечной Консьерж</p>
-                <h2 class="serif-title text-3xl md:text-5xl font-light text-white">4 шага к идеальной атмосфере</h2>
-                <div class="h-1 w-12 bg-amber-500 mx-auto mt-4"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-                
-                <!-- Step 1 -->
-                <div class="relative bg-zinc-950/20 p-6 border border-zinc-900 hover:border-zinc-800 transition duration-300">
-                    <span class="serif-title text-4xl font-light text-amber-500/20 absolute top-4 right-4">01</span>
-                    <h4 class="serif-title text-base font-semibold text-white mt-6 mb-3">Оценка и запуск</h4>
-                    <p class="text-zinc-500 text-xs leading-relaxed">
-                        Мы бесплатно привозим тестовый набор и умные колбы-трансформеры. Подбираем идеальный график горения под ваши посадки.
-                    </p>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="relative bg-zinc-950/20 p-6 border border-zinc-900 hover:border-zinc-800 transition duration-300">
-                    <span class="serif-title text-4xl font-light text-amber-500/20 absolute top-4 right-4">02</span>
-                    <h4 class="serif-title text-base font-semibold text-white mt-6 mb-3">Ротация стекла</h4>
-                    <p class="text-zinc-500 text-xs leading-relaxed">
-                        Каждые две недели курьер забирает грязные застывшие колбы и привозит идеально чистые. Ваш персонал не пачкает руки.
-                    </p>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="relative bg-zinc-950/20 p-6 border border-zinc-900 hover:border-zinc-800 transition duration-300">
-                    <span class="serif-title text-4xl font-light text-amber-500/20 absolute top-4 right-4">03</span>
-                    <h4 class="serif-title text-base font-semibold text-white mt-6 mb-3">Эко-утилизация</h4>
-                    <p class="text-zinc-500 text-xs leading-relaxed">
-                        Все парафиновые огарки мы забираем обратно на наше производство на повторный цикл переработки. Никакой грязи в ваших мусорных контейнерах.
-                    </p>
-                </div>
-
-                <!-- Step 4 -->
-                <div class="relative bg-zinc-950/20 p-6 border border-zinc-900 hover:border-zinc-800 transition duration-300">
-                    <span class="serif-title text-4xl font-light text-amber-500/20 absolute top-4 right-4">04</span>
-                    <h4 class="serif-title text-base font-semibold text-white mt-6 mb-3">Фиксация бюджета</h4>
-                    <p class="text-zinc-500 text-xs leading-relaxed">
-                        Ваш ежемесячный бюджет на вечерний свет жестко зафиксирован в договоре на год вперед. Забудьте о сезонном росте цен на праздники.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- FREE TEST BOX CTA FORM -->
-    <section id="test-box" class="py-24 px-4 bg-zinc-950 relative border-t border-zinc-900">
-        <div class="max-w-xl mx-auto text-center">
-            <span class="text-xs uppercase tracking-[0.4em] text-amber-500">Тест-драйв атмосферы</span>
-            <h2 class="serif-title text-3xl md:text-5xl font-light text-white mt-2 mb-4">Закажите бесплатный Тест-Бокс</h2>
-            <p class="text-zinc-400 text-xs leading-relaxed mb-12">
-                Мы бесплатно доставим вам комплект из 4 размеров свечей CIA и 2 умных колб-трансформеров в Санкт-Петербурге или ЛО. Попробуйте в течение 3 вечеров в зале заведения перед принятием любого решения.
-            </p>
-
-            <form onsubmit="handleSubmit(event)" class="space-y-4 text-left">
-                <div>
-                    <label class="block text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Название заведения</label>
-                    <input type="text" required placeholder="Например: Гастробар Лето" class="w-full bg-zinc-900/60 border border-zinc-800 rounded-none px-4 py-3 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500 transition duration-300">
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Ваше имя (ЛПР)</label>
-                        <input type="text" required placeholder="Иван, управляющий" class="w-full bg-zinc-900/60 border border-zinc-800 rounded-none px-4 py-3 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500 transition duration-300">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Контактный телефон</label>
-                        <input type="tel" required placeholder="+7 (999) 000-00-00" class="w-full bg-zinc-900/60 border border-zinc-800 rounded-none px-4 py-3 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500 transition duration-300">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Адрес доставки в СПб или ЛО</label>
-                    <input type="text" required placeholder="Улица, дом, ресторан" class="w-full bg-zinc-900/60 border border-zinc-800 rounded-none px-4 py-3 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500 transition duration-300">
-                </div>
-
-                <button type="submit" class="w-full bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-medium text-xs uppercase tracking-widest py-4 rounded-none transition duration-300 glow-amber mt-6">
-                    Отправить заявку на тест-бокс
-                </button>
-            </form>
+    <section id="order">
+        <div class="form-container">
+            <h2>Заказать бесплатный Тест-Бокс</h2>
+            <p style="text-align: center; margin-bottom: 30px; opacity: 0.8;">Мы привезем 10 свечей и 2 колбы в течение 24 часов.</p>
             
-            <p id="successMessage" class="hidden mt-6 text-xs text-amber-500 font-medium">
-                ✨ Заявка успешно принята! Наш Свечной Консьерж свяжется с вами в течение 15 минут для подтверждения времени доставки.
-            </p>
+            <form action="https://formspree.io/f/mqakpjne" method="POST">
+                <input type="text" name="name" placeholder="Ваше имя" required>
+                <input type="text" name="venue" placeholder="Название заведения" required>
+                <input type="tel" name="phone" placeholder="Телефон (WhatsApp)" required>
+                <input type="text" name="address" placeholder="Адрес доставки Тест-Бокса" required>
+                
+                <button type="submit" class="btn-submit">Оформить доставку</button>
+            </form>
+            <p style="font-size: 0.6rem; text-align: center; margin-top: 20px; opacity: 0.4;">Нажимая кнопку, вы соглашаетесь с политикой обработки данных.</p>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-zinc-950 py-12 px-4 border-t border-zinc-900 text-center text-zinc-600 text-xs">
-        <div class="max-w-4xl mx-auto space-y-4">
-            <h3 class="serif-title text-lg font-semibold tracking-wide text-zinc-300">CIA Candles</h3>
-            <p class="text-[10px] uppercase tracking-[0.4em] text-amber-500/75">Crafted for Atmosphere</p>
-            <div class="h-[1px] w-12 bg-zinc-800 mx-auto"></div>
-            <p class="max-w-md mx-auto text-zinc-500 text-[11px] leading-relaxed">
-                © 2026 CIA Candles. Все права защищены. Проект «Свечной Консьерж» — зарегистрированный торговый знак премиального ресторанного снабжения.
-            </p>
-        </div>
+    <footer>
+        <p>© 2026 CIA Candles Atmosphere Service. Санкт-Петербург.</p>
+        <p style="margin-top: 5px;">Email: ciacandles@mail.ru | Тел: +7 (911) 210-99-55</p>
     </footer>
 
-    <!-- INTERACTIVE JAVASCRIPT -->
+    <a href="https://wa.me/79112109955?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%AF%20%D0%B8%D0%B7%20%5B%D0%9D%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F%5D,%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D0%A2%D0%B5%D1%81%D1%82-%D0%91%D0%BE%D0%BA%D1%81%20%D0%BD%D0%B0%203%20%D0%B2%D0%B5%D1%87%D0%B5%D1%80%D0%B0." class="wa-float" target="_blank">
+        <svg viewBox="0 0 32 32" style="width:35px; height:35px; fill:#fff;">
+            <path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.39 0-.11-.243-.754-.774-1.214-.717-.616-1.348-1.748-1.548-1.748-.06 0-.287.074-.49.36-.559.737-.817 1.602-.817 2.467 0 1.332.458 2.335 1.533 3.396 1.39 1.375 3.124 2.212 4.801 2.212.63 0 1.131-.13 1.547-.487.416-.358.946-.86.946-1.404 0-.114-.144-.301-.545-.487zm.225-13.335A11.164 11.164 0 0 0 8.163 15.037c0 2.251.66 4.427 1.906 6.262L8.2 27.5l6.435-1.706c1.777 1.05 3.83 1.611 5.927 1.611a11.15 11.15 0 0 0 11.154-11.144A11.16 11.16 0 0 0 19.335 3.87zM20 25.43c-1.89 0-3.73-.48-5.36-1.4l-.38-.22-3.99 1.06 1.08-3.74-.24-.4c-1.04-1.72-1.58-3.69-1.58-5.7 0-6.14 5.01-11.15 11.15-11.15 6.13 0 11.14 5.01 11.14 11.15 0 6.14-5.01 11.15-11.14 11.15z"></path>
+        </svg>
+    </a>
+
     <script>
-        // Toggle the Glass Transformer flip state
-        function toggleGlass() {
-            const card = document.getElementById('glassCard');
-            const descNormal = document.getElementById('desc-normal');
-            const descFlipped = document.getElementById('desc-flipped');
-            const flippedBorder = document.getElementById('flipped-border');
-            const flippedLabel = document.getElementById('flipped-label');
-
-            card.classList.toggle('flipped');
-
-            if (card.classList.contains('flipped')) {
-                // Flipped active
-                descNormal.classList.add('opacity-40');
-                descFlipped.classList.remove('opacity-40');
-                flippedBorder.classList.add('border-amber-500');
-                flippedBorder.classList.remove('border-zinc-700');
-                flippedLabel.classList.add('text-amber-500');
-                flippedLabel.classList.remove('text-zinc-500');
-            } else {
-                // Normal active
-                descNormal.classList.remove('opacity-40');
-                descFlipped.classList.add('opacity-40');
-                flippedBorder.classList.remove('border-amber-500');
-                flippedBorder.classList.add('border-zinc-700');
-                flippedLabel.classList.remove('text-amber-500');
-                flippedLabel.classList.add('text-zinc-500');
-            }
-        }
-
-        // Live calculation for savings
-        function calculateSavings() {
-            const tables = parseInt(document.getElementById('tablesRange').value);
-            const days = parseInt(document.getElementById('daysRange').value);
-
-            // Update range labels
-            document.getElementById('tablesValue').innerText = `${tables} ${getTablesWord(tables)}`;
-            document.getElementById('daysValue').innerText = `${days} ${getDaysWord(days)}`;
-
-            // Calculations:
-            // - Average cost of damaged linen химчистка: 15% table rate * tables count * 350 rubles per laundry.
-            // - Wax scrap time saved: 5 mins per table * tables * days / 60 mins.
-            // - Cheap candle waste replaced by CIA premium lasting: roughly 15 rubles saved per candle day.
-            
-            const laundrySavings = Math.round(tables * 0.15 * days * 110);
-            const laborTimeMinutes = Math.round(5 * tables * (days / 2)); // staff doesn't clean every table every single day
-            const laborHoursSaved = Math.round(laborTimeMinutes / 60);
-            
-            const candleMaterialSavings = Math.round(tables * days * 12);
-            
-            const totalMoneySaved = laundrySavings + candleMaterialSavings;
-
-            // Render numbers with formatting
-            document.getElementById('moneySaved').innerText = `${totalMoneySaved.toLocaleString('ru-RU')} ₽`;
-            document.getElementById('hoursSaved').innerText = `${laborHoursSaved} ${getHoursWord(laborHoursSaved)}`;
-        }
-
-        // Russian language helpers for units pluralization
-        function getTablesWord(count) {
-            const lastDigit = count % 10;
-            const lastTwo = count % 100;
-            if (lastTwo >= 11 && lastTwo <= 19) return 'столов';
-            if (lastDigit === 1) return 'стол';
-            if (lastDigit >= 2 && lastDigit <= 4) return 'стола';
-            return 'столов';
-        }
-
-        function getDaysWord(count) {
-            const lastDigit = count % 10;
-            const lastTwo = count % 100;
-            if (lastTwo >= 11 && lastTwo <= 19) return 'дней';
-            if (lastDigit === 1) return 'день';
-            if (lastDigit >= 2 && lastDigit <= 4) return 'дня';
-            return 'дней';
-        }
-
-        function getHoursWord(count) {
-            const lastDigit = count % 10;
-            const lastTwo = count % 100;
-            if (lastTwo >= 11 && lastTwo <= 19) return 'часов';
-            if (lastDigit === 1) return 'час';
-            if (lastDigit >= 2 && lastDigit <= 4) return 'часа';
-            return 'часов';
-        }
-
-        // Free Test-Box submit event simulator
-        function handleSubmit(event) {
-            event.preventDefault();
-            document.getElementById('successMessage').classList.remove('hidden');
-            event.target.reset();
-        }
-
-        // Run calculator on initial load
-        window.onload = function() {
-            calculateSavings();
-        }
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
+
 </body>
 </html>
